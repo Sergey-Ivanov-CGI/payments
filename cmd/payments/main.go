@@ -7,9 +7,15 @@ import (
 )
 
 func main() {
-	amount := domain.Amount(150_00) // 150 рублей в копейках
-	units := domain.MinorUnitsPerWhole(domain.RUB)
+	c, err := domain.ParseCurrency("RUB")
+	if err != nil {
+		fmt.Println("error:", err)
+		return
+	}
+	fmt.Println("parsed:", c)
 
-	fmt.Println("Amount:", amount, "minor units per RUB:", units)
-	fmt.Println("Amount in rubles:", float64(amount)/float64(units))
+	_, err = domain.ParseCurrency("XYZ")
+	if err != nil {
+		fmt.Println("expected error:", err)
+	}
 }
